@@ -263,6 +263,16 @@ class Invoice implements XmlSerializable, XmlDeserializable
     }
 
     /**
+     * @param ?string $note
+     * @return static
+     */
+    public function addNote(?string $note)
+    {
+        $this->notes[] = $note;
+        return $this;
+    }
+
+    /**
      * @param ?array
      * @return static
      */
