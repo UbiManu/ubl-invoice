@@ -289,7 +289,7 @@ $taxCategory = (new TaxCategory())
 ```php
 $invoice = (new Invoice())
     ->setId('INV-2024-001')
-    ->setNote('Payment within 30 days. Thank you for your business.');
+    ->addNote('Payment within 30 days. Thank you for your business.');
 ```
 
 ## Currency

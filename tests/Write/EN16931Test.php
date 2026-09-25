@@ -163,7 +163,7 @@ class EN16931Test extends TestCase
             ->setCustomizationId('urn:cen.eu:en16931:2017')
             ->setId(1234)
             ->setIssueDate(new \DateTime())
-            ->setNote('invoice note')
+            ->addNote('invoice note')
             ->setDelivery($delivery)
             ->setAccountingSupplierParty($accountingSupplierParty)
             ->setAccountingCustomerParty($accountingCustomerParty)
