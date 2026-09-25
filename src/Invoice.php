@@ -23,7 +23,7 @@ class Invoice implements XmlSerializable, XmlDeserializable
     private $issueDate;
     private ?DateTime $issueTime;
     protected $invoiceTypeCode = InvoiceTypeCode::INVOICE;
-    private $note;
+    private $notes;
     private $taxPointDate;
     private $dueDate;
     private $paymentTerms;
@@ -255,20 +255,19 @@ class Invoice implements XmlSerializable, XmlDeserializable
     }
 
     /**
-     * @return string
+     * @return array
      */
-    public function getNote()
+    public function getNotes()
     {
-        return $this->note;
+        return $this->notes;
     }
 
     /**
-     * @param ?string $note
+     * @param ?array
      * @return static
      */
-    public function setNote(?string $note)
-    {
-        $this->note = $note;
+    public function setNotes(?array $notes){
+        $this->notes = $notes;
         return $this;
     }
 
@@ -832,10 +831,12 @@ class Invoice implements XmlSerializable, XmlDeserializable
             ]);
         }
 
-        if ($this->note !== null) {
-            $writer->write([
-                Schema::CBC . "Note" => $this->note,
-            ]);
+        if ($this->notes !== null) {
+            foreach ($this->notes as $note) {
+                $writer->write([
+                    Schema::CBC . "Note" => $note,
+                ]);
+            }
         }
 
         if ($this->taxPointDate !== null) {
@@ -1092,8 +1093,11 @@ class Invoice implements XmlSerializable, XmlDeserializable
                     $collection,
                 )) !== null ? (int) $typeCode : null,
             )
-            ->setNote(
-                ReaderHelper::getTagValue(Schema::CBC . "Note", $collection),
+            ->setNotes(
+                ReaderHelper::getArrayValue(
+                    Schema::CAC . "Note",
+                    $collection,
+                ),
             )
             ->setTaxPointDate(
                 ($taxPointDate = ReaderHelper::getTagValue(
