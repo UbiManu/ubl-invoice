@@ -1095,7 +1095,7 @@ class Invoice implements XmlSerializable, XmlDeserializable
             )
             ->setNotes(
                 ReaderHelper::getArrayValue(
-                    Schema::CAC . "Note",
+                    Schema::CBC . "Note",
                     $collection,
                 ),
             )
